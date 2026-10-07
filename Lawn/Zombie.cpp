@@ -80,6 +80,37 @@ Zombie::Zombie()
 {
 }
 
+void Zombie::UpdateZombieWithFiery() 
+{
+
+    if (!mHasHead)
+        return;
+
+    mGhastlyTimer++;
+
+
+    if (mGhastlyTimer > FIERY_READY_TO_ATTACK)
+    {
+
+        float aOriginX = mPosX - 9.0f;
+        float aOriginY = mPosY + 6.0f - mAltitude;
+        if (mMindControlled)
+        {
+            aOriginX += 90.0f * mScaleZombie;
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_PEA);
+            aProjectile->mDamageRangeFlags = 1;
+        }
+        else
+        {
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA);
+            aProjectile->mMotionType = ProjectileMotion::MOTION_BACKWARDS;
+        }
+    }
+
+
+
+}
+
 //VORTEX
 void Zombie::ApplyInitalInfernalEffects() 
 {
@@ -101,211 +132,217 @@ void Zombie::ApplyInitalInfernalEffects()
         effectsNumber += 2;
 
 
-        if (RandRangeInt(0, 7) == 0) { // Ultra
+        if (RandRangeInt(0, 7) == 0) 
+        { 
             effectsNumber += 3 + RandRangeInt(1, 2);
 
-            if (RandRangeInt(0, 7) == 0) {  // Infernal
-
+            if (RandRangeInt(0, 7) == 0) 
+            {  
                 effectsNumber += 3 + RandRangeInt(1, 2);
 
+            }
 
-                for (int i = 0; i < effectsNumber; i++)
+            }
+
+        for (int i = 0; i < effectsNumber; i++)
+        {
+            if (!mHasOneUp)
+            {
+                if (RandRangeInt(1, 2) == 0) 
                 {
-
-                    if (!mHasOneUp) 
-                    {
-                        if (RandRangeInt(1, 2) == 0) {
-                            mHasOneUp = true;
+                    mHasOneUp = true;
 
 
-                        } 
-                    }
+                }
+            }
 
-                    if (!mHasBer) 
-                    {
-                        if (RandRangeInt(1, 2) == 0) {
-                            mHasBer = true;
-
-                        }
-                    
-                    }
-
-                    if (!mHasAlc) 
-                    {
-                        if (RandRangeInt(1, 2) == 0) 
-                        {
-                            mHasAlc = true;
-                        }
-                    
-                    }
-
-                    if (!mHasBlastoff) 
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasBlastoff = true;
-                        }
-                    
-                    }
-
-                    if (!mHasBulwark)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasBulwark = true;
-                        }
-
-                    }
-
-                    if (!mHasChoke)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasChoke = true;
-                        }
-
-                    }
-
-                    if (!mHasCloak)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasCloak = true;
-                        }
-
-                    }
-
-
-                    if (!mHasDarkness)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasDarkness = true;
-                        }
-
-                    }
-
-
-
-                    if (!mHasEnder)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasEnder = true;
-                        }
-
-                    }
-
-
-
-                    if (!mHasNinja)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasNinja = true;
-                        }
-
-                    }
-
-                    if (!mHasExhaust)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasExhaust = true;
-                        }
-
-                    }
-
-                    if (!mHasFiery)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasFiery = true;
-                        }
-
-                    }
-
-
-                    if (!mHasGhastly)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasGhastly = true;
-                        }
-
-                    }
-
-
-                    if (!mHasGravity)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasGravity = true;
-                        }
-
-                    }
-
-                    if (!mHasLifesteal)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasLifesteal = true;
-                        }
-
-                    }
-
-
-                    if (!mHasPosion)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasPosion = true;
-                        }
-
-                    }
-
-                    if (!mHasQuickSand)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasQuickSand = true;
-                        }
-
-                    }
-
-                    if (!mHasSnapper) 
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasSnapper = true;
-                        }
-                    
-                    }
-
-
-                    if (!mHasSprint)
-                    {
-                        if (RandRangeInt(1, 2) == 0)
-                        {
-                            mHasSprint = true;
-                        }
-
-
-                    }
-
-
-
-
-                 } 
+            if (!mHasBer)
+            {
+                if (RandRangeInt(1, 2) == 0) 
+                {
+                    mHasBer = true;
 
                 }
 
+            }
+
+            if (!mHasAlc)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasAlc = true;
+                }
+
+            }
+
+            if (!mHasBlastoff)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasBlastoff = true;
+                }
+
+            }
+
+            if (!mHasBulwark)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasBulwark = true;
+                }
+
+            }
+
+            if (!mHasChoke)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasChoke = true;
+                }
+
+            }
+
+            if (!mHasCloak)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasCloak = true;
+                }
+
+            }
 
 
+            if (!mHasDarkness)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasDarkness = true;
+                }
+
+            }
+
+
+
+            if (!mHasEnder)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasEnder = true;
+                }
+
+            }
+
+
+
+            if (!mHasNinja)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasNinja = true;
+                }
+
+            }
+
+            if (!mHasExhaust)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasExhaust = true;
+                }
+
+            }
+
+            if (!mHasFiery)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasFiery = true;
+                }
+
+            }
+
+
+            if (!mHasGhastly)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasGhastly = true;
+                }
+
+            }
+
+
+            if (!mHasGravity)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasGravity = true;
+                }
+
+            }
+
+            if (!mHasLifesteal)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasLifesteal = true;
+                }
+
+            }
+
+
+            if (!mHasPosion)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasPosion = true;
+                }
+
+            }
+
+            if (!mHasQuickSand)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasQuickSand = true;
+                }
+
+            }
+
+            if (!mHasSnapper)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasSnapper = true;
+                }
+
+            }
+
+
+            if (!mHasSprint)
+            {
+                if (RandRangeInt(1, 2) == 0)
+                {
+                    mHasSprint = true;
+                }
 
 
             }
+
+
+
+
         }
+
+
+
+
+
+
+        }
+
+
+
 
     }
 
@@ -319,7 +356,7 @@ void Zombie::UpdateZombieInfernalEffect()
     {
         float mBodyFloat = (float)mBodyHealth;
         float mBodyMaxHealthFloat = (float)mBodyMaxHealth;
-        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5) {
+        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) {
             mActiveOneUp = true;
 
             if (mActiveOneUp == true)
@@ -330,6 +367,12 @@ void Zombie::UpdateZombieInfernalEffect()
 
         }
     
+    }
+
+
+    if (mHasGhastly) 
+    {
+        UpdateZombieWithFiery();
     }
 
 
@@ -378,6 +421,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 {
     TOD_ASSERT(theType >= 0 && theType <= ZombieType::NUM_ZOMBIE_TYPES);
 
+   // mEffectsTest.reserve(36);
 
     mFromWave = theFromWave;
     mRow = theRow;
@@ -7206,13 +7250,13 @@ void Zombie::EatPlant(Plant* thePlant)
     //vortex
     if (mHasLifesteal == true) {
         if (mBodyHealth <= mBodyMaxHealth) {
-            mBodyHealth += 2;
+            mBodyHealth += DAMAGE_PER_EAT_LIFESTEAL;
         }
         else if (mHelmType != HELMTYPE_NONE && mHelmHealth <= mHelmMaxHealth) {
-            mHelmHealth += 2;
+            mHelmHealth += DAMAGE_PER_EAT_LIFESTEAL;
         }
         else if (mShieldType != ShieldType::SHIELDTYPE_NONE && mShieldHealth <= mShieldMaxHealth) {
-            mShieldHealth = +2;
+            mShieldHealth = +DAMAGE_PER_EAT_LIFESTEAL;
         }
 
     }
@@ -7537,6 +7581,8 @@ void Zombie::BungeeDie()
 
 void Zombie::DieNoLoot()
 {
+//    mEffectsTest.clear();
+ //   mEffectsTest.shrink_to_fit();
     StopZombieSound();
     AttachmentDie(mAttachmentID);
     mApp->RemoveReanimation(mBodyReanimID);
@@ -8159,6 +8205,8 @@ Zombie::~Zombie()
 {
     AttachmentDie(mAttachmentID);
     StopZombieSound();
+    // mEffectsTest.clear();
+    // mEffectsTest.shrink_to_fit();
 }
 
 bool Zombie::CanBeChilled()

@@ -56,11 +56,11 @@ void MiniCreditsScreen::Draw(Graphics* g)
 
 	g->mTransY += BOARD_OFFSET_Y;
 	g->mTransX += BOARD_ADDITIONAL_WIDTH;
-	TodDrawString(g, "'insert your mod name' Team \n", 400, 120, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
-	TodDrawString(g, "Insert Name\n", 400, 140, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
-	TodDrawString(g, "Insert Name\n", 400, 160, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
-	TodDrawString(g, "Insert Name\n", 400, 180, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
-	TodDrawString(g, "Insert Name\n", 400, 200, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
+	TodDrawString(g, "'The Infernal Zombies Mod Credits\n", 400, 120, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
+	TodDrawString(g, "Mod programed by VortexBlender aka Rusty \n", 400, 140, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
+	TodDrawString(g, "Based off Infernal Mobs Mod for Minecraft by AtomicStriker\n", 400, 160, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
+	TodDrawString(g, "AtomicStriker has no assocation with this mod.\n", 400, 180, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
+	TodDrawString(g, "Plants Vs Zombies 1 Modders Assocation for their help\n", 400, 200, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
 
 	TodDrawString(g, "Plants Vs. Zombies Team \n", 120, 420, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);
 	TodDrawString(g, "George Fan\n", 120, 440, Sexy::FONT_HOUSEOFTERROR16, TextColor, DS_ALIGN_CENTER);

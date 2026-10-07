@@ -29,6 +29,8 @@ constexpr const int ZOMBIE_BACKUP_DANCER_RISE_HEIGHT = -200;
 constexpr const int BOSS_FLASH_HEALTH_FRACTION = 10;
 constexpr const int TICKS_BETWEEN_EATS = 4;
 constexpr const int DAMAGE_PER_EAT = TICKS_BETWEEN_EATS;
+constexpr const int DAMAGE_PER_EAT_LIFESTEAL = TICKS_BETWEEN_EATS - 2;
+constexpr const int FIERY_READY_TO_ATTACK = 160;
 constexpr const float THOWN_ZOMBIE_GRAVITY = 0.05f;
 constexpr const float CHILLED_SPEED_FACTOR = 0.4f;
 constexpr const float CLIP_HEIGHT_LIMIT = -100.0f;
@@ -165,10 +167,13 @@ public:
 
 public:
     Zombie();
-    ~Zombie();
 
+    ~Zombie();
     void ApplyInitalInfernalEffects(); //VORTEX
     void UpdateZombieInfernalEffect(); //VORTEX
+    void UpdateZombieWithFiery();  //VORTEX
+ //   std::vector<std::string> mEffectsTest; //VORTEX
+    int                             mGhastlyTimer; //VORTEX
     bool                            mActiveOneUp; //VORTEX
     bool                            mHasOneUp; //VORTEX
     bool                            mHasBer;//VORTEX
@@ -190,6 +195,7 @@ public:
     bool                            mHasSnapper;//VORTEX
     bool                            mHasSprint;//VORTEX
     bool                            mHasAlreadyGivenSprint; //VORTEX
+    bool                            mHasSticky;//Vortex
     void                            ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie* theParentZombie, int theFromWave, bool theAnimateBush = true);
     void                            Animate();
     void                            CheckIfPreyCaught();
