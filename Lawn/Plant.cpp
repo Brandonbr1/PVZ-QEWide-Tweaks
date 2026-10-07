@@ -4295,6 +4295,7 @@ void Plant::DoSpecial()
         mApp->PlaySample(SOUND_DOOMSHROOM);
 
         mBoard->KillAllZombiesInRadius(mRow, aPosX, aPosY, 250, 3, true, aDamageRangeFlags);
+        mBoard->KillAllPlantsInRadius(aPosX, aPosY, 250); //VORTEX
         KillAllPlantsNearDoom();
 
         mApp->AddTodParticle(aPosX, aPosY, (int)RenderLayer::RENDER_LAYER_TOP, ParticleEffect::PARTICLE_DOOM);

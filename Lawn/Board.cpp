@@ -292,6 +292,21 @@ void Board::DisposeBoard()
 	mApp->mEffectSystem->EffectSystemFreeAll();
 }
 
+
+
+//VORTEX
+void Board::DamageAllPlantsInRadius(int theX, int theY, int theRadius, int damage)
+{
+	Plant* aPlant = nullptr;
+	while (IteratePlants(aPlant))
+	{
+		if (GetCircleRectOverlap(theX, theY, theRadius, aPlant->GetPlantRect()))
+		{
+			aPlant->mPlantHealth -= damage;
+		}
+	}
+}
+
 bool Board::AreEnemyZombiesOnScreen()
 {
 	Zombie* aZombie = nullptr;
@@ -579,6 +594,7 @@ void ZombiePickerInit(ZombiePicker* theZombiePicker)
 	memset(theZombiePicker->mAllWavesZombieTypeCount, 0, sizeof(theZombiePicker->mAllWavesZombieTypeCount));
 }
 
+//VORTEX
 void Board::PutZombieInWave(ZombieType theZombieType, int theWaveNumber, ZombiePicker* theZombiePicker)
 {
 	TOD_ASSERT(theWaveNumber < MAX_ZOMBIE_WAVES && theZombiePicker->mZombieCount < MAX_ZOMBIES_IN_WAVE);
@@ -686,6 +702,17 @@ void Board::PickZombieWaves()
 		{
 			int aPlainZombiesNum = min(aZombiePoints, 8);
 			aZombiePoints *= 2.5f;
+
+			//VORTEX
+			if (StageIsNight())
+			{
+				aZombiePoints *= 1.5f;
+			}
+
+			//VORTEX
+			if (StageHasFog()) {
+				aZombiePoints *= 2.0f;
+			}
 
 			if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2)
 			{
@@ -10158,10 +10185,14 @@ bool Board::PlantUsesAcceleratedPricing(SeedType theSeedType)
 {
 	return Plant::IsUpgrade(theSeedType) && mApp->IsSurvivalEndless(mApp->mGameMode);
 }
-
+//VORTEX
 int Board::GetCurrentPlantCost(SeedType theSeedType, SeedType theImitaterType)
 {
 	int aCost = Plant::GetCost(theSeedType, theImitaterType);
+	//Immitator more expensive
+	if (theImitaterType != SEED_NONE) {
+		aCost = aCost + aCost;
+	}
 	if (PlantUsesAcceleratedPricing(theSeedType))
 	{
 		aCost += CountPlantByType(theSeedType) * 50;

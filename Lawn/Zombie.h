@@ -167,6 +167,29 @@ public:
     Zombie();
     ~Zombie();
 
+    void ApplyInitalInfernalEffects(); //VORTEX
+    void UpdateZombieInfernalEffect(); //VORTEX
+    bool                            mActiveOneUp; //VORTEX
+    bool                            mHasOneUp; //VORTEX
+    bool                            mHasBer;//VORTEX
+    bool                            mHasAlc;//VORTEX
+    bool                            mHasBlastoff;//VORTEX
+    bool                            mHasBulwark;//VORTEX
+    bool                            mHasChoke; //Vortex
+    bool                            mHasCloak; //Vortex
+    bool                            mHasDarkness;//VORTEX
+    bool                            mHasEnder;//VORTEX
+    bool                            mHasNinja;//VORTEX
+    bool                            mHasExhaust;//VORTEX
+    bool                            mHasFiery;//VORTEX
+    bool                            mHasGhastly;//VORTEX
+    bool                            mHasGravity;//VORTEX
+    bool                            mHasLifesteal;//VORTEX
+    bool                            mHasPosion;//VORTEX
+    bool                            mHasQuickSand;//VORTEX
+    bool                            mHasSnapper;//VORTEX
+    bool                            mHasSprint;//VORTEX
+    bool                            mHasAlreadyGivenSprint; //VORTEX
     void                            ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie* theParentZombie, int theFromWave, bool theAnimateBush = true);
     void                            Animate();
     void                            CheckIfPreyCaught();

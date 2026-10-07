@@ -105,7 +105,7 @@ struct BungeeDropGrid
 class Board : public Widget, public ButtonListener
 {
 public:
-	LawnApp*						mApp;													
+	LawnApp*						mApp;		
 	DataArray<Zombie>				mZombies;												
 	DataArray<Plant>				mPlants;												
 	DataArray<Projectile>			mProjectiles;											
@@ -248,6 +248,7 @@ public:
 	int								CountSunBeingCollected();
 	void							DrawGameObjects(Graphics* g);
 	void							ClearCursor();
+	void DamageAllPlantsInRadius(int theX, int theY, int theRadius, int damage); //VORTEX
 	/*inline*/ bool					AreEnemyZombiesOnScreen();
 	LawnMower*						FindLawnMowerInRow(int theRow);
 	inline bool						SyncState(DataSync& theDataSync) { return true; }

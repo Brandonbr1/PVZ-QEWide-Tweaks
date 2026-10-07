@@ -80,9 +80,304 @@ Zombie::Zombie()
 {
 }
 
+//VORTEX
+void Zombie::ApplyInitalInfernalEffects() 
+{
+
+    if (mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_1 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_2 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_3 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_4 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_5 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_6 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_7 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_8 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_9 ||
+        mApp->mGameMode != GAMEMODE_PUZZLE_I_ZOMBIE_ENDLESS
+        ) 
+    {
+
+        int effectsNumber = RandRangeInt(1, 3);
+        effectsNumber += 2;
+
+
+        if (RandRangeInt(0, 7) == 0) { // Ultra
+            effectsNumber += 3 + RandRangeInt(1, 2);
+
+            if (RandRangeInt(0, 7) == 0) {  // Infernal
+
+                effectsNumber += 3 + RandRangeInt(1, 2);
+
+
+                for (int i = 0; i < effectsNumber; i++)
+                {
+
+                    if (!mHasOneUp) 
+                    {
+                        if (RandRangeInt(1, 2) == 0) {
+                            mHasOneUp = true;
+
+
+                        } 
+                    }
+
+                    if (!mHasBer) 
+                    {
+                        if (RandRangeInt(1, 2) == 0) {
+                            mHasBer = true;
+
+                        }
+                    
+                    }
+
+                    if (!mHasAlc) 
+                    {
+                        if (RandRangeInt(1, 2) == 0) 
+                        {
+                            mHasAlc = true;
+                        }
+                    
+                    }
+
+                    if (!mHasBlastoff) 
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasBlastoff = true;
+                        }
+                    
+                    }
+
+                    if (!mHasBulwark)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasBulwark = true;
+                        }
+
+                    }
+
+                    if (!mHasChoke)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasChoke = true;
+                        }
+
+                    }
+
+                    if (!mHasCloak)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasCloak = true;
+                        }
+
+                    }
+
+
+                    if (!mHasDarkness)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasDarkness = true;
+                        }
+
+                    }
+
+
+
+                    if (!mHasEnder)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasEnder = true;
+                        }
+
+                    }
+
+
+
+                    if (!mHasNinja)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasNinja = true;
+                        }
+
+                    }
+
+                    if (!mHasExhaust)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasExhaust = true;
+                        }
+
+                    }
+
+                    if (!mHasFiery)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasFiery = true;
+                        }
+
+                    }
+
+
+                    if (!mHasGhastly)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasGhastly = true;
+                        }
+
+                    }
+
+
+                    if (!mHasGravity)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasGravity = true;
+                        }
+
+                    }
+
+                    if (!mHasLifesteal)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasLifesteal = true;
+                        }
+
+                    }
+
+
+                    if (!mHasPosion)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasPosion = true;
+                        }
+
+                    }
+
+                    if (!mHasQuickSand)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasQuickSand = true;
+                        }
+
+                    }
+
+                    if (!mHasSnapper) 
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasSnapper = true;
+                        }
+                    
+                    }
+
+
+                    if (!mHasSprint)
+                    {
+                        if (RandRangeInt(1, 2) == 0)
+                        {
+                            mHasSprint = true;
+                        }
+
+
+                    }
+
+
+
+
+                 } 
+
+                }
+
+
+
+
+
+            }
+        }
+
+    }
+
+
+
+//VORTEX
+void Zombie::UpdateZombieInfernalEffect()
+{
+
+    if (mHasOneUp) 
+    {
+        float mBodyFloat = (float)mBodyHealth;
+        float mBodyMaxHealthFloat = (float)mBodyMaxHealth;
+        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5) {
+            mActiveOneUp = true;
+
+            if (mActiveOneUp == true)
+            {
+                mActiveOneUp = true;
+                mBodyHealth = mBodyMaxHealth;
+            }
+
+        }
+    
+    }
+
+
+    if (mHasChoke)  
+    {
+        float mBodyFloat = (float)mBodyHealth;
+        float mBodyMaxHealthFloat = (float)mBodyMaxHealth;
+        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) {
+            int aPosX = mX + mWidth / 2;
+            int aPosY = mY + mHeight / 2;
+            mBoard->DamageAllPlantsInRadius(aPosX, aPosY, JackInTheBoxPlantRadius, 40);
+        }
+
+        Plant* aPlant = nullptr;
+        while (mBoard->IteratePlants(aPlant))
+        {
+            if (aPlant->mRow == mRow && mX >= aPlant->mX + 100 &&
+                mX <= aPlant->mX + 250 &&
+                !aPlant->NotOnGround())
+            {
+                Plant* plant = mBoard->GetTopPlantAt(aPlant->mPlantCol, aPlant->mRow, PlantPriority::TOPPLANT_EATING_ORDER);
+
+                EatPlant(aPlant);
+
+             //   plant->mPlantHealth -= 40;
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+    
+    
+    
+    }
+
+}
+
 void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie* theParentZombie, int theFromWave, bool theAnimateBush)
 {
     TOD_ASSERT(theType >= 0 && theType <= ZombieType::NUM_ZOMBIE_TYPES);
+
 
     mFromWave = theFromWave;
     mRow = theRow;
@@ -827,6 +1122,11 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     }
 
     UpdateReanim();
+
+
+    if (RandRangeInt(1, 6) == 0) {
+        ApplyInitalInfernalEffects();
+    }
 }
 
 void Zombie::SetupDoorArms(Reanimation* aReanim, bool theShow)
@@ -1131,8 +1431,12 @@ void Zombie::PickRandomSpeed()
     else if (mZombiePhase == ZombiePhase::PHASE_LADDER_CARRYING || mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD)
     {
         mVelX = RandRangeFloat(0.79f, 0.81f);
+    } 
+    else if (mZombiePhase == ZombiePhase::PHASE_NEWSPAPER_MAD) //VORTEX
+    {
+        mVelX = RandRangeFloat(1.55f, 1.75f);
     }
-    else if (mZombiePhase == ZombiePhase::PHASE_NEWSPAPER_MAD || mZombiePhase == ZombiePhase::PHASE_DOLPHIN_WALKING || 
+    else if (mZombiePhase == ZombiePhase::PHASE_DOLPHIN_WALKING || 
         mZombiePhase == ZombiePhase::PHASE_DOLPHIN_WALKING_WITHOUT_DOLPHIN)
     {
         mVelX = RandRangeFloat(0.89f, 0.91f);
@@ -1147,6 +1451,14 @@ void Zombie::PickRandomSpeed()
         else
         {
             mAnimTicksPerFrame = 15;
+        }
+    }
+
+    if (mHasSprint) 
+    {
+        if (!mHasAlreadyGivenSprint) {
+            mVelX = mVelX + 0.5f;
+            mHasAlreadyGivenSprint == true;
         }
     }
 
@@ -6059,7 +6371,7 @@ void Zombie::Draw(Graphics* g)
     {
         DrawIceTrap(g, aDrawPos, false);
     }
-    if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL || mFromWave == Zombie::ZOMBIE_WAVE_UI)
+    if (!mHasCloak && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL || mFromWave == Zombie::ZOMBIE_WAVE_UI) //VORTEX
     {
         if (mBodyReanimID != ReanimationID::REANIMATIONID_NULL)
         {
@@ -6859,6 +7171,54 @@ void Zombie::EatPlant(Plant* thePlant)
             thePlant->mPlantHealth -= DAMAGE_PER_EAT;
         }
     }
+
+    //VORTEX
+    if (mHasBer == true) {
+        mBodyHealth--;
+        thePlant->mPlantHealth -= 12;
+        thePlant->mRecentlyEatenCountdown -= 20;
+    }
+
+    //VORTEX
+    //TODO LAUNCH IT
+    if (mHasBlastoff == true) {
+      //  while (mY < 1800) {
+       //     thePlant->mY += 1;
+
+        //    if (mY > 1799) {
+                thePlant->Die();
+        //    }
+    //    }
+
+    }
+
+
+    //VORTEX
+    if (mHasGravity == true) {
+        if (thePlant->mSeedType == SeedType::SEED_WALLNUT || thePlant->mSeedType == SeedType::SEED_GIANT_WALLNUT) {
+            thePlant->mX += 50;
+        }
+        else {
+            thePlant->mX -= 50;
+        }
+
+    }
+    //vortex
+    if (mHasLifesteal == true) {
+        if (mBodyHealth <= mBodyMaxHealth) {
+            mBodyHealth += 2;
+        }
+        else if (mHelmType != HELMTYPE_NONE && mHelmHealth <= mHelmMaxHealth) {
+            mHelmHealth += 2;
+        }
+        else if (mShieldType != ShieldType::SHIELDTYPE_NONE && mShieldHealth <= mShieldMaxHealth) {
+            mShieldHealth = +2;
+        }
+
+    }
+
+
+
 
     if (thePlant->mPlantHealth <= 0)
     {
@@ -7733,6 +8093,18 @@ void Zombie::TakeDamage(int theDamage, unsigned int theDamageFlags)
         return;
 
     int aDamageRemaining = theDamage;
+
+     //VORTEX
+    if (mHasBulwark == true)   
+    {
+        aDamageRemaining = aDamageRemaining / 2;
+    }
+
+    //VORTEX
+    if (mHasEnder && RandRangeInt(0,12) == 0) {
+        mPosX+= 50 + RandRangeInt(15, 25);
+    }
+
 
     if (IsFlying())
     {
