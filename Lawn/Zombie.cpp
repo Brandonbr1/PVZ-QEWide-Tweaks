@@ -322,7 +322,7 @@ void Zombie::UpdateZombieInfernalEffect()
             if (!mActiveOneUp)
             {
                 mActiveOneUp = true;
-                mBodyHealth = 9000;
+                mBodyHealth = mBodyMaxHealth;
             }
 
         }
