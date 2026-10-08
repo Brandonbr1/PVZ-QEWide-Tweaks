@@ -172,7 +172,7 @@ public:
     void ApplyInitalInfernalEffects(); //VORTEX
     void UpdateZombieInfernalEffect(); //VORTEX
     void UpdateZombieWithFiery();  //VORTEX
- //   std::vector<std::string> mEffectsTest; //VORTEX
+  //  std::vector<std::string> mEffectsTest; //VORTEX
     int                             mGhastlyTimer; //VORTEX
     bool                            mActiveOneUp; //VORTEX
     bool                            mHasOneUp; //VORTEX
@@ -196,6 +196,7 @@ public:
     bool                            mHasSprint;//VORTEX
     bool                            mHasAlreadyGivenSprint; //VORTEX
     bool                            mHasSticky;//Vortex
+    bool                            mHasStorm;//Vortex
     void                            ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie* theParentZombie, int theFromWave, bool theAnimateBush = true);
     void                            Animate();
     void                            CheckIfPreyCaught();

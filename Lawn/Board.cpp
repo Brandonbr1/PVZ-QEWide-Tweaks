@@ -1511,7 +1511,15 @@ void Board::InitLevel()
 	}
 	else
 	{
-		mSunMoney = 50;
+
+
+		if (DEBUG == true)
+		{
+			mSunMoney = 1000;
+		}
+		else {
+			mSunMoney = 50;
+		}
 	}
 
 	memset(mRowPickingArray, 0, sizeof(mRowPickingArray));

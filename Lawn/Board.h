@@ -25,6 +25,9 @@ using namespace Sexy;
 #define MAX_RENDER_ITEMS 2048
 #define PROGRESS_METER_COUNTER 150
 
+
+constexpr const bool DEBUG = true;
+
 class LawnApp;
 class CursorObject;
 class CursorPreview;

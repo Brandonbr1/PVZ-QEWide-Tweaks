@@ -319,7 +319,7 @@ void Plant::PlantInitialize(int theGridX, int theGridY, SeedType theSeedType, Se
         if (IsInPlay())
         {
             aBodyReanim->AssignRenderGroupToTrack("anim_glow", RENDER_GROUP_HIDDEN);
-            mStateCountdown = 1500;
+            mStateCountdown = 2000;
         }
         else
         {
@@ -4281,7 +4281,8 @@ void Plant::DoSpecial()
         {
             mApp->GetAchievement(ACHIEVEMENT_EXPLODONATOR);
         }
-        mBoard->KillAllZombiesInRadius(mRow, aPosX, aPosY, 115, 1, true, aDamageRangeFlags);
+        mBoard->KillAllZombiesInRadius(mRow, aPosX, aPosY, 115, 1, true, aDamageRangeFlags); 
+        mBoard->KillAllPlantsInRadius(aPosX, aPosY, 115); //VORTEX
 
 
         mApp->AddTodParticle(aPosX, aPosY, (int)RenderLayer::RENDER_LAYER_TOP, ParticleEffect::PARTICLE_POWIE);
@@ -4347,6 +4348,7 @@ void Plant::DoSpecial()
 
         mApp->PlaySample(SOUND_POTATO_MINE);
         mBoard->KillAllZombiesInRadius(mRow, aPosX, aPosY, 60, 0, false, aDamageRangeFlags);
+        mBoard->KillAllPlantsInRadius(aPosX, aPosY, 60);
         if(!mApp->IsIZombieLevel() && !mApp->mPlayingQuickplay)
             mApp->GetAchievement(AchievementType::ACHIEVEMENT_SPUDOW);
 
@@ -4362,7 +4364,7 @@ void Plant::DoSpecial()
         Plant* aPlant = mBoard->GetTopPlantAt(mPlantCol, mRow, PlantPriority::TOPPLANT_ONLY_NORMAL_POSITION);
         if (aPlant && aPlant->mIsAsleep)
         {
-            aPlant->mWakeUpCounter = 100;
+            aPlant->mWakeUpCounter = 1000;
         }
 
         mState = PlantState::STATE_DOINGSPECIAL;

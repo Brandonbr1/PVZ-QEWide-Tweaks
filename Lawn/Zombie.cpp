@@ -146,191 +146,152 @@ void Zombie::ApplyInitalInfernalEffects()
 
         for (int i = 0; i < effectsNumber; i++)
         {
+
             if (!mHasOneUp)
             {
-                if (RandRangeInt(1, 2) == 0) 
+                if (RandRangeInt(1, 3) == 1) 
                 {
                     mHasOneUp = true;
-
-
-                }
+               }
             }
-
+            /**
             if (!mHasBer)
             {
-                if (RandRangeInt(1, 2) == 0) 
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasBer = true;
 
                 }
-
             }
-
             if (!mHasAlc)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasAlc = true;
                 }
-
             }
-
             if (!mHasBlastoff)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasBlastoff = true;
                 }
 
             }
-
             if (!mHasBulwark)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasBulwark = true;
                 }
 
             }
-
             if (!mHasChoke)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasChoke = true;
                 }
 
             }
-
             if (!mHasCloak)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasCloak = true;
                 }
-
             }
-
-
             if (!mHasDarkness)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasDarkness = true;
                 }
-
-            }
-
-
-
-            if (!mHasEnder)
-            {
-                if (RandRangeInt(1, 2) == 0)
-                {
-                    mHasEnder = true;
-                }
-
-            }
-
-
-
-            if (!mHasNinja)
-            {
-                if (RandRangeInt(1, 2) == 0)
-                {
-                    mHasNinja = true;
-                }
-
             }
 
             if (!mHasExhaust)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasExhaust = true;
                 }
-
             }
-
             if (!mHasFiery)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasFiery = true;
                 }
-
             }
-
-
             if (!mHasGhastly)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasGhastly = true;
                 }
-
             }
-
-
             if (!mHasGravity)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasGravity = true;
                 }
-
             }
-
             if (!mHasLifesteal)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasLifesteal = true;
                 }
-
             }
-
-
             if (!mHasPosion)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasPosion = true;
                 }
-
             }
-
             if (!mHasQuickSand)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasQuickSand = true;
                 }
-
             }
-
             if (!mHasSnapper)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasSnapper = true;
                 }
-
             }
-
-
             if (!mHasSprint)
             {
-                if (RandRangeInt(1, 2) == 0)
+                if (RandRangeInt(1, 3) == 1)
                 {
                     mHasSprint = true;
                 }
-
-
             }
 
+            if (!mHasSticky) 
+            {
+                if (RandRangeInt(1, 3) == 1)
+                {
+                    mHasSticky = true;
+                }
+            
+            }
 
-
+            if (!mHasStorm) 
+            {
+                if (RandRangeInt(1, 3) == 1)
+                {
+                    mHasStorm = true;
+                }
+            
+            }
+            **/
+            
 
         }
 
@@ -356,17 +317,26 @@ void Zombie::UpdateZombieInfernalEffect()
     {
         float mBodyFloat = (float)mBodyHealth;
         float mBodyMaxHealthFloat = (float)mBodyMaxHealth;
-        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) {
-            mActiveOneUp = true;
-
-            if (mActiveOneUp == true)
+        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) 
+        {
+            if (!mActiveOneUp)
             {
                 mActiveOneUp = true;
-                mBodyHealth = mBodyMaxHealth;
+                mBodyHealth = 9000;
             }
 
         }
+    }
+
+    if (mHasAlc) 
+    {
+        
     
+    }
+
+    if (mHasSticky) 
+    {
+        
     }
 
 
@@ -380,7 +350,8 @@ void Zombie::UpdateZombieInfernalEffect()
     {
         float mBodyFloat = (float)mBodyHealth;
         float mBodyMaxHealthFloat = (float)mBodyMaxHealth;
-        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) {
+        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) 
+        {
             int aPosX = mX + mWidth / 2;
             int aPosY = mY + mHeight / 2;
             mBoard->DamageAllPlantsInRadius(aPosX, aPosY, JackInTheBoxPlantRadius, 40);
@@ -397,8 +368,6 @@ void Zombie::UpdateZombieInfernalEffect()
 
                 EatPlant(aPlant);
 
-             //   plant->mPlantHealth -= 40;
-
             }
 
 
@@ -407,6 +376,8 @@ void Zombie::UpdateZombieInfernalEffect()
 
         }
 
+        // 2 FULL NEG EXPOS PASS
+        // -100 ONCE PLANT
 
 
 
@@ -422,6 +393,29 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     TOD_ASSERT(theType >= 0 && theType <= ZombieType::NUM_ZOMBIE_TYPES);
 
    // mEffectsTest.reserve(36);
+
+    mHasOneUp = false;
+    mHasBer = false;
+    mHasAlc = false;
+    mHasBlastoff = false;
+    mHasBulwark = false;
+    mHasChoke = false;
+    mHasCloak = false;
+    mHasDarkness = false;
+    mHasEnder = false;
+    mHasNinja = false;
+    mHasExhaust = false;
+    mHasFiery = false;
+    mHasGhastly = false;
+    mHasGravity = false;
+    mHasLifesteal = false;
+    mHasPosion == false;
+    mHasQuickSand = false;
+    mHasSnapper = false;
+    mHasSprint = false;
+    mHasAlreadyGivenSprint = false;
+    mHasSticky = false;
+    mActiveOneUp = false;
 
     mFromWave = theFromWave;
     mRow = theRow;
@@ -1168,9 +1162,9 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     UpdateReanim();
 
 
-    if (RandRangeInt(1, 6) == 0) {
+ //   if (RandRangeInt(1, 6) == 4) {
         ApplyInitalInfernalEffects();
-    }
+   // }
 }
 
 void Zombie::SetupDoorArms(Reanimation* aReanim, bool theShow)
@@ -4449,6 +4443,8 @@ void Zombie::Update()
 
     if (doUpdate)
     {
+
+        UpdateZombieInfernalEffect();
         if (mZombiePhase == ZombiePhase::PHASE_ZOMBIE_BURNED)
         {
             UpdateBurn();
@@ -4655,6 +4651,7 @@ void Zombie::UpdateActions()
     {
         UpdateZombieSquashHead();
     }
+
 }
 
 void Zombie::CheckForBoardEdge()
@@ -7217,7 +7214,8 @@ void Zombie::EatPlant(Plant* thePlant)
     }
 
     //VORTEX
-    if (mHasBer == true) {
+    if (mHasBer == true) 
+    {
         mBodyHealth--;
         thePlant->mPlantHealth -= 12;
         thePlant->mRecentlyEatenCountdown -= 20;
@@ -7226,20 +7224,21 @@ void Zombie::EatPlant(Plant* thePlant)
     //VORTEX
     //TODO LAUNCH IT
     if (mHasBlastoff == true) {
-      //  while (mY < 1800) {
-       //     thePlant->mY += 1;
+        while (mY < 1800) {
+           thePlant->mY += 1;
 
-        //    if (mY > 1799) {
+            if (mY > 1799) {
                 thePlant->Die();
-        //    }
-    //    }
+           }
+        }
 
     }
 
 
     //VORTEX
     if (mHasGravity == true) {
-        if (thePlant->mSeedType == SeedType::SEED_WALLNUT || thePlant->mSeedType == SeedType::SEED_GIANT_WALLNUT) {
+        if (thePlant->mSeedType == SeedType::SEED_WALLNUT || thePlant->mSeedType == SeedType::SEED_GIANT_WALLNUT) 
+        {
             thePlant->mX += 50;
         }
         else {
@@ -7248,14 +7247,18 @@ void Zombie::EatPlant(Plant* thePlant)
 
     }
     //vortex
-    if (mHasLifesteal == true) {
-        if (mBodyHealth <= mBodyMaxHealth) {
+    if (mHasLifesteal == true)
+    {
+        if (mBodyHealth <= mBodyMaxHealth) 
+        {
             mBodyHealth += DAMAGE_PER_EAT_LIFESTEAL;
         }
-        else if (mHelmType != HELMTYPE_NONE && mHelmHealth <= mHelmMaxHealth) {
+        else if (mHelmType != HELMTYPE_NONE && mHelmHealth <= mHelmMaxHealth) 
+        {
             mHelmHealth += DAMAGE_PER_EAT_LIFESTEAL;
         }
-        else if (mShieldType != ShieldType::SHIELDTYPE_NONE && mShieldHealth <= mShieldMaxHealth) {
+        else if (mShieldType != ShieldType::SHIELDTYPE_NONE && mShieldHealth <= mShieldMaxHealth) 
+        {
             mShieldHealth = +DAMAGE_PER_EAT_LIFESTEAL;
         }
 
@@ -8147,8 +8150,26 @@ void Zombie::TakeDamage(int theDamage, unsigned int theDamageFlags)
     }
 
     //VORTEX
-    if (mHasEnder && RandRangeInt(0,12) == 0) {
+    if (mHasEnder || mHasNinja && RandRangeInt(0,12) == 0) 
+    {
         mPosX+= 50 + RandRangeInt(15, 25);
+    }
+
+    //VORTEX
+    if (mHasExhaust)
+    {
+        //  mBoard->plantProjectileAssociation->mLaunchCounter += 8;
+    }
+
+    if (mHasQuickSand) 
+    {
+        //  mBoard->plantProjectileAssociation->mLaunchCounter += 8;
+    }
+
+    //VORTEX
+    if (mHasPosion) 
+    {
+        // mBoard->plantProjectileAssociation->mPoisioned = true;
     }
 
 
@@ -10386,7 +10407,10 @@ void Zombie::UpdateBoss()
     }
 
     Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
-    UpdateBossFireball();
+    UpdateBossFireball(); // SHOULD THIS BE FIERY? :)
+
+
+    //TODO: IF LOWER MAKE TIMERS GO OFF FASTER!
     if (mIceTrapCounter == 0)
     {
         if (mSummonCounter > 0)
