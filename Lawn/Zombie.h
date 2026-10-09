@@ -203,6 +203,8 @@ public:
     bool                            mHasAlreadyGivenSprint; //VORTEX
     bool                            mHasSticky;//Vortex
     bool                            mHasStorm;//Vortex
+    bool                            mHasRegen;//Vortex
+    int                             mRegenTimer;//Vortex
     void                            ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie* theParentZombie, int theFromWave, bool theAnimateBush = true);
     void                            Animate();
     void                            CheckIfPreyCaught();
@@ -216,6 +218,7 @@ public:
     void                            DrawZombieWithParts(Graphics* g, const ZombieDrawPosition& theDrawPos);
     void                            DrawZombiePart(Graphics* g, Image* theImage, int theFrame, int theRow, const ZombieDrawPosition& theDrawPos);
     void                            DrawBungeeCord(Graphics* g, int theOffsetX, int theOffsetY);
+    void TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, unsigned int plantID); //VORTEX
     void                            TakeDamage(int theDamage, unsigned int theDamageFlags);
     /*inline*/ void                 SetRow(int theRow);
     float                           GetPosYBasedOnRow(int theRow);
@@ -295,7 +298,8 @@ public:
     int                             TakeShieldDamage(int theDamage, unsigned int theDamageFlags);
     int                             TakeHelmDamage(int theDamage, unsigned int theDamageFlags);
     void                            TakeBodyDamage(int theDamage, unsigned int theDamageFlags);
-    void TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, int posX, int posY, unsigned int plantId); //VORTEX
+  //  void TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, int posX, int posY); //VORTEX
+ //   void TakeDamageFromZombie(int theDamage, unsigned int theDamageFlags, Zombie * zom); //VORTEX
     void                            AttachShield();
     void                            DetachShield();
     void                            UpdateReanim();

@@ -2951,7 +2951,7 @@ void Challenge::DrawStormFlash(Graphics* g, int theTime, int theMaxAmount)
 {
 	MTRand aDrawRand = MTRand(mBoard->mMainCounter / 6);
 	int aDarkness = TodAnimateCurve(150, 0, theTime, 255 - theMaxAmount, 255, CURVE_LINEAR) + aDrawRand.NextNoAssert((unsigned long)64) - 32;
-	g->SetColor(Color(0, 0, 0, ClampInt(aDarkness, 0, 220)));
+	g->SetColor(Color(0, 0, 0, ClampInt(aDarkness, 0, 255)));
 	g->FillRect(-1000, -1000, 2800, 2600);
 
 	g->SetColor(Color(255, 255, 255, TodAnimateCurve(150, 75, theTime, theMaxAmount, 0, CURVE_LINEAR)));
@@ -3023,10 +3023,10 @@ void Challenge::DrawStormNight(Graphics* g)
 			}
 			else
 			{
-				DrawStormFlash(g, mBoard->mDarknessTimer, 92);
+				DrawStormFlash(g, mBoard->mDarknessTimer / 2, 255);
 			}
 		}
-		else if ( mBoard->mDarknessTimer < 300)
+		else if (mBoard->mDarknessTimer < 300)
 		{
 			DrawStormFlash(g, mBoard->mDarknessTimer / 2, 255);
 		}

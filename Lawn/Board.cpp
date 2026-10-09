@@ -94,7 +94,6 @@ Board::Board(LawnApp* theApp)
 			mGridCelFog[i][k] = 0;
 		}
 	}
-	mDarknessTimer = 300;
 	mFogOffset = 0.0f;
 	mSunCountDown = 0;
 	mShakeCounter = 0;
@@ -194,6 +193,8 @@ Board::Board(LawnApp* theApp)
 	mDebugObjectSelection = 0;
 	mDebugObjectType = 0;
 	mDebugObjectLimit = 0;
+	mDarknessEnabled = false;
+	mDarknessTimer = 300;
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || mApp->mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM)
 	{
@@ -1987,6 +1988,9 @@ void Board::FadeOutLevel()
 		mApp->mLastLevelStats->Reset();
 		mLevelComplete = true;
 	}
+	//VORTEX
+	//mDarknessEnabled = false;
+	//mDarknessTimer = 300;
 
 	bool aNeedSoundEffect = true;
 	if (mApp->IsScaryPotterLevel() && !IsFinalScaryPotterStage())
@@ -2506,10 +2510,19 @@ bool Board::HasValidCobCannonSpot()
 	return false;
 }
 
-Projectile* Board::AddProjectile(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType)
+
+Projectile* Board::AddProjectile(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, Plant * aPlant)
 {
 	Projectile* aProjectile = mProjectiles.DataArrayAlloc();
-	aProjectile->ProjectileInitialize(theX, theY, theRenderOrder, theRow, theProjectileType);
+
+	PlantID a = (PlantID)mPlants.DataArrayGetID(aPlant);
+
+	unsigned int b = a;
+
+
+
+
+	aProjectile->ProjectileInitialize(theX, theY, theRenderOrder, theRow, theProjectileType, b);
 	return aProjectile;
 }
 
@@ -5053,17 +5066,16 @@ void Board::UpdateGameObjects()
 		aZombie->Update();
 	}
 
-	Zombie* aZombie2 = nullptr;
-	while (IterateZombies(aZombie2))
+	if (mDarknessEnabled) 
 	{
-		//if (aZombie2->mHasDarkness) 
-		//{
-
-	//	}
+		mDarknessTimer--;
 	}
 
-	mDarknessEnabled = true;
-	mDarknessTimer--;
+	if (mDarknessTimer < 0) 
+	{
+		mDarknessTimer = 300;
+	}
+
 
 
 	Bush* aBush = nullptr;

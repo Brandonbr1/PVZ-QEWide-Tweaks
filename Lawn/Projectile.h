@@ -52,12 +52,14 @@ public:
     int                     mCobTargetRow;          
     ZombieID                mTargetZombieID;        
     int                     mLastPortalX;    
-    int                     initalX;
-    int                     initalY;
+    unsigned int            mPlantId;
+    bool                    mShotFromZombie;
 
 public:
     Projectile();
     ~Projectile();
+
+    void ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, unsigned int plantID); //VORTEX
 
     void                    ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType);
     void                    Update();
@@ -75,6 +77,7 @@ public:
     ProjectileDefinition&   GetProjectileDef();
     unsigned int            GetDamageFlags(Zombie* theZombie/* = nullptr*/);
     Rect                    GetProjectileRect();
+    void ConvertToFireballWithoutTorch(); //VORTEX
     void                    UpdateNormalMotion();
     Plant*                  FindCollisionTargetPlant();
     void                    ConvertToFireball(int theGridX);

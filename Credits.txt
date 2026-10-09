@@ -1,0 +1,10 @@
+The mod is inspired by the following works:
+Plants vs Zombies Horror Edition
+
+AtomicStryker's Infernal Mobs by atomicstrykergrumpy(https://www.curseforge.com/minecraft/mc-mods/atomicstrykers-infernal-mobs)
+
+Special Mobs by FatherToast(https://www.curseforge.com/minecraft/mc-mods/special-mobs)
+
+Hostile Worlds - Classic by Corosus(https://www.curseforge.com/minecraft/mc-mods/hostile-worlds-classic)
+
+Special AI by FatherToast(https://www.curseforge.com/minecraft/mc-mods/special-ai)

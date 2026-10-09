@@ -24,6 +24,11 @@ ProjectileDefinition gProjectileDefinition[] = {
 	{ ProjectileType::PROJECTILE_BASKETBALL,    0,  75, _S("BASKETBALL")  },
 	{ ProjectileType::PROJECTILE_KERNEL,        0,  20, _S("KERNEL")  },
 	{ ProjectileType::PROJECTILE_COBBIG,        0,  300, _S("BIG_COB") },
+
+
+
+
+
 	{ ProjectileType::PROJECTILE_BUTTER,        0,  40, _S("BUTTER")  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_PEA,    0,  20, _S("ZOMBIE_PEA")  }
 };
@@ -37,15 +42,21 @@ Projectile::~Projectile()
 	AttachmentDie(mAttachmentID);
 }
 
+void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, unsigned int plantID) 
+{
+	ProjectileInitialize(theX, theY, theRenderOrder, theRow, theProjectileType);
+	mPlantId = plantID;
+}
+
 void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType)
 {
+
 	int aGridX = mBoard->PixelToGridXKeepOnBoard(theX, theY);
 	mProjectileType = theProjectileType;
 	mPosX = theX;
 	mPosY = theY;
 
-	initalX = theX;
-	initalY = theY;
+
 
 	mPosZ = 0.0f;
 	mVelX = 0.0f;
@@ -423,7 +434,8 @@ bool Projectile::IsZombieHitBySplash(Zombie* theZombie)
 
 	int aRowDeviation = theZombie->mRow - mRow;
 	Rect aZombieRect = theZombie->GetZombieRect();
-	if (theZombie->IsFireResistant() && mProjectileType == ProjectileType::PROJECTILE_FIREBALL)
+	if (theZombie->IsFireResistant() && mProjectileType == ProjectileType::PROJECTILE_FIREBALL||
+		theZombie->IsFireResistant())
 	{
 		return false;
 	}
@@ -484,11 +496,11 @@ void Projectile::DoSplashDamage(Zombie* theZombie)
 			unsigned int aDamageFlags = GetDamageFlags(aZombie);
 			if (aZombie == theZombie)
 			{
-				aZombie->TakeDamage(aOriginalDamage, aDamageFlags);
+				aZombie->TakeDamageWithPlantPos(aOriginalDamage, aDamageFlags, mPlantId);
 			}
 			else
 			{
-				aZombie->TakeDamage(aSplashDamage, aDamageFlags);
+				aZombie->TakeDamageWithPlantPos(aSplashDamage, aDamageFlags, mPlantId);
 			}
 		}
 	}
@@ -823,7 +835,7 @@ void Projectile::DoImpact(Zombie* theZombie)
 	else if (theZombie)
 	{
 		unsigned int aDamageFlags = GetDamageFlags(theZombie);
-		theZombie->TakeDamage(GetProjectileDef().mDamage, aDamageFlags);
+		theZombie->TakeDamageWithPlantPos(GetProjectileDef().mDamage, aDamageFlags);
 	}
 
 	float aLastPosX = mPosX - mVelX;
@@ -941,7 +953,8 @@ void Projectile::Update()
 		mProjectileType == ProjectileType::PROJECTILE_BUTTER || 
 		mProjectileType == ProjectileType::PROJECTILE_COBBIG || 
 		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA || 
-		mProjectileType == ProjectileType::PROJECTILE_SPIKE)
+		mProjectileType == ProjectileType::PROJECTILE_SPIKE
+		)
 	{
 		aTime = 0;
 	}
@@ -1130,7 +1143,6 @@ void Projectile::DrawShadow(Graphics* g)
 		aStretch = 3.0f;
 		aOffsetX += 57.0f;
 		break;
-
 	case ProjectileType::PROJECTILE_FIREBALL:
 		aScale = 1.4f;
 		break;
@@ -1188,6 +1200,28 @@ Rect Projectile::GetProjectileRect()
 	{
 		return Rect(mX, mY, mWidth, mHeight);
 	}
+}
+
+//VORTEX
+void Projectile::ConvertToFireballWithoutTorch()
+{
+
+	mProjectileType = ProjectileType::PROJECTILE_FIREBALL;
+	mApp->PlayFoley(FoleyType::FOLEY_FIREPEA);
+
+	float aOffsetX = -25.0f;
+	float aOffsetY = -25.0f;
+	Reanimation* aFirePeaReanim = mApp->AddReanimation(0.0f, 0.0f, 0, ReanimationType::REANIM_FIRE_PEA);
+	if (mMotionType == ProjectileMotion::MOTION_BACKWARDS)
+	{
+		aFirePeaReanim->OverrideScale(-1.0f, 1.0f);
+		aOffsetX += 80.0f;
+	}
+
+	aFirePeaReanim->SetPosition(mPosX + aOffsetX, mPosY + aOffsetY);
+	aFirePeaReanim->mLoopType = ReanimLoopType::REANIM_LOOP;
+	aFirePeaReanim->mAnimRate = RandRangeFloat(50.0f, 80.0f);
+	AttachReanim(mAttachmentID, aFirePeaReanim, aOffsetX, aOffsetY);
 }
 
 void Projectile::ConvertToFireball(int theGridX)
