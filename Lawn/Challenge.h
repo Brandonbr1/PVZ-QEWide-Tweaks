@@ -70,7 +70,7 @@ public:
     int                     mChallengeGridY;                                    
     int                     mScaryPotterPots;                                   
     int                     mRainCounter;                                       
-    int                     mTreeOfWisdomTalkIndex;                             
+    int                     mTreeOfWisdomTalkIndex;    
 
 public:
     Challenge();

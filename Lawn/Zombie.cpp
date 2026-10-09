@@ -151,64 +151,71 @@ void Zombie::ApplyInitalInfernalEffects()
             {
                 if (RandRangeInt(1, 3) == 1) 
                 {
-                    mHasOneUp = true;
+               //     mHasOneUp = true;
                }
             }
-            /**
+
+            
             if (!mHasBer)
             {
-                if (RandRangeInt(1, 3) == 1)
-                {
-                    mHasBer = true;
+               // if (RandRangeInt(1, 3) == 1)
+               // {
+               //     mHasBer = true;
 
-                }
+               // }
             }
+           
             if (!mHasAlc)
             {
                 if (RandRangeInt(1, 3) == 1)
                 {
-                    mHasAlc = true;
+                //    mHasAlc = true;
+                    //TODO: IMPLEMENT
                 }
             }
+           
             if (!mHasBlastoff)
             {
-                if (RandRangeInt(1, 3) == 1)
-                {
-                    mHasBlastoff = true;
-                }
+              //  if (RandRangeInt(1, 3) == 1)
+              //  {
+                //    mHasBlastoff = true;
+              //  }
 
             }
+         
             if (!mHasBulwark)
             {
                 if (RandRangeInt(1, 3) == 1)
                 {
-                    mHasBulwark = true;
+               //     mHasBulwark = true;
                 }
 
             }
             if (!mHasChoke)
             {
-                if (RandRangeInt(1, 3) == 1)
-                {
-                    mHasChoke = true;
-                }
+               // if (RandRangeInt(1, 3) == 1)
+              //  {
+             //       mHasChoke = true;
+               // }
 
             }
+        
             if (!mHasCloak)
             {
-                if (RandRangeInt(1, 3) == 1)
-                {
-                    mHasCloak = true;
-                }
+               // if (RandRangeInt(1, 3) == 1)
+               // {
+                  //  mHasCloak = true;
+                //}
             }
+  
             if (!mHasDarkness)
             {
-                if (RandRangeInt(1, 3) == 1)
-                {
+              //  if (RandRangeInt(1, 3) == 1)
+              //  {
                     mHasDarkness = true;
-                }
+              //  }
             }
-
+            /**
             if (!mHasExhaust)
             {
                 if (RandRangeInt(1, 3) == 1)
@@ -309,6 +316,7 @@ void Zombie::ApplyInitalInfernalEffects()
 
 
 
+
 //VORTEX
 void Zombie::UpdateZombieInfernalEffect()
 {
@@ -339,7 +347,6 @@ void Zombie::UpdateZombieInfernalEffect()
         
     }
 
-
     if (mHasGhastly) 
     {
         UpdateZombieWithFiery();
@@ -348,15 +355,6 @@ void Zombie::UpdateZombieInfernalEffect()
 
     if (mHasChoke)  
     {
-        float mBodyFloat = (float)mBodyHealth;
-        float mBodyMaxHealthFloat = (float)mBodyMaxHealth;
-        if (mBodyFloat <= mBodyMaxHealthFloat / 1.5f) 
-        {
-            int aPosX = mX + mWidth / 2;
-            int aPosY = mY + mHeight / 2;
-            mBoard->DamageAllPlantsInRadius(aPosX, aPosY, JackInTheBoxPlantRadius, 40);
-        }
-
         Plant* aPlant = nullptr;
         while (mBoard->IteratePlants(aPlant))
         {
@@ -366,7 +364,7 @@ void Zombie::UpdateZombieInfernalEffect()
             {
                 Plant* plant = mBoard->GetTopPlantAt(aPlant->mPlantCol, aPlant->mRow, PlantPriority::TOPPLANT_EATING_ORDER);
 
-                EatPlant(aPlant);
+                plant->mPlantHealth -= 2;
 
             }
 
@@ -7214,29 +7212,51 @@ void Zombie::EatPlant(Plant* thePlant)
     }
 
     //VORTEX
-    if (mHasBer == true) 
+    if (mHasBer) 
     {
         mBodyHealth--;
-        thePlant->mPlantHealth -= 12;
-        thePlant->mRecentlyEatenCountdown -= 20;
+        thePlant->mPlantHealth -= DAMAGE_PER_EAT;
+        thePlant->mRecentlyEatenCountdown -= EAT_COOLDOWN_REDUCE;
     }
 
-    //VORTEX
-    //TODO LAUNCH IT
-    if (mHasBlastoff == true) {
-        while (mY < 1800) {
-           thePlant->mY += 1;
+    if (mHasBlastoff) 
+    {
+       thePlant->mY -= 100;
 
-            if (mY > 1799) {
-                thePlant->Die();
-           }
+       if (thePlant->mY < -50) 
+       {
+           thePlant->Die();
+       
+       }
+        
+
+
+        int aGridX = mBoard->PixelToGridXKeepOnBoard(thePlant->mX, thePlant->mY);
+        int aGridY = mBoard->PixelToGridYKeepOnBoard(thePlant->mX, thePlant->mY);
+
+        Plant* aPlant = nullptr;
+
+        while (mBoard->IteratePlants(aPlant)) 
+        {
+            if (aPlant != thePlant && aPlant->mRow == aGridY && aPlant->mPlantCol == aGridX) 
+            {
+                aPlant->Die();
+            }
+        
+        
         }
 
+        
+        thePlant->mPlantCol = aGridX;
+        thePlant->mRow = aGridY;
+
+ 
+
     }
 
 
     //VORTEX
-    if (mHasGravity == true) {
+    if (mHasGravity) {
         if (thePlant->mSeedType == SeedType::SEED_WALLNUT || thePlant->mSeedType == SeedType::SEED_GIANT_WALLNUT) 
         {
             thePlant->mX += 50;
@@ -7247,7 +7267,7 @@ void Zombie::EatPlant(Plant* thePlant)
 
     }
     //vortex
-    if (mHasLifesteal == true)
+    if (mHasLifesteal)
     {
         if (mBodyHealth <= mBodyMaxHealth) 
         {
@@ -8134,6 +8154,33 @@ void Zombie::TakeBodyDamage(int theDamage, unsigned int theDamageFlags)
         PlayDeathAnim(theDamageFlags);
         DropLoot();
     }
+}
+
+
+//VORTEX
+//TODO, GET PLANT BASED OFF POS
+void Zombie::TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, int posX, int posY, unsigned int plantid) 
+{
+    TakeDamage(theDamage, theDamage);
+
+
+    int aGridX = mBoard->PixelToGridXKeepOnBoard(posX, posY);
+    int aGridY = mBoard->PixelToGridYKeepOnBoard(posX, posY);
+
+
+    Plant* aPlant = nullptr;
+    while (mBoard->IteratePlants(aPlant)) 
+    {
+        if (aPlant == mBoard->mPlants.DataArrayTryToGet(plantid) && aPlant->mRow == aGridY && aPlant->mPlantCol == aGridX)
+        {
+
+
+
+        }
+    
+    }
+
+
 }
 
 void Zombie::TakeDamage(int theDamage, unsigned int theDamageFlags)
@@ -9530,7 +9577,7 @@ bool Zombie::HasShadow()
     if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM) //WIDETWEAK: no shadows in zombiquarium
         return false;
 
-    return mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL || mFromWave == Zombie::ZOMBIE_WAVE_UI; 
+    return !mHasCloak || mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL || mFromWave == Zombie::ZOMBIE_WAVE_UI; 
 }
 
 bool Zombie::SetupDrawZombieWon(Graphics* g)

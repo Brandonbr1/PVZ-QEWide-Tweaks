@@ -54,6 +54,7 @@ const int           FOG_BLOW_RETURN_TIME = 2000;
 const int           SUN_COUNTDOWN = 425;
 const int           SUN_COUNTDOWN_RANGE = 275;
 const int           SUN_COUNTDOWN_MAX = 950;
+const int           SUN_COUNTDOWN_MAX_GLOOMY_DAY = 1950; //VORTEX
 const int           SURVIVAL_NORMAL_FLAGS = 5;
 const int           SURVIVAL_HARD_FLAGS = 10;
 

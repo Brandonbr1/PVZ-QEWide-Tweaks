@@ -94,6 +94,7 @@ Board::Board(LawnApp* theApp)
 			mGridCelFog[i][k] = 0;
 		}
 	}
+	mDarknessTimer = 300;
 	mFogOffset = 0.0f;
 	mSunCountDown = 0;
 	mShakeCounter = 0;
@@ -710,7 +711,8 @@ void Board::PickZombieWaves()
 			}
 
 			//VORTEX
-			if (StageHasFog()) {
+			if (StageHasFog()) 
+			{
 				aZombiePoints *= 2.0f;
 			}
 
@@ -941,7 +943,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_SEEING_STARS:
 	case GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2:
 	case GameMode::GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT:
-	case GameMode::GAMEMODE_CHALLENGE_SUNNY_DAY:
+	case GameMode::GAMEMODE_CHALLENGE_GLOOMY_DAY:
 	case GameMode::GAMEMODE_CHALLENGE_RESODDED:
 	case GameMode::GAMEMODE_CHALLENGE_BIG_TIME:
 	case GameMode::GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER:
@@ -1536,6 +1538,12 @@ void Board::InitLevel()
 	{
 		mSunCountDown = RandRangeInt(425, 700);
 	}
+
+	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_GLOOMY_DAY) //VOTREX
+	{
+		mSunCountDown = RandRangeInt(1200, 1400);
+	}
+
 	memset(mHelpDisplayed, 0, sizeof(mHelpDisplayed));
 	mSeedBank->mNumPackets = GetNumSeedsInBank();
 	mSeedBank->UpdateWidth();
@@ -5045,6 +5053,19 @@ void Board::UpdateGameObjects()
 		aZombie->Update();
 	}
 
+	Zombie* aZombie2 = nullptr;
+	while (IterateZombies(aZombie2))
+	{
+		//if (aZombie2->mHasDarkness) 
+		//{
+
+	//	}
+	}
+
+	mDarknessEnabled = true;
+	mDarknessTimer--;
+
+
 	Bush* aBush = nullptr;
 	while (IterateBushes(aBush))
 	{
@@ -5286,8 +5307,15 @@ void Board::UpdateSunSpawning()
 		return;
 
 	mNumSunsFallen++;
-	mSunCountDown = min(SUN_COUNTDOWN_MAX, SUN_COUNTDOWN + mNumSunsFallen * 10) + Rand(SUN_COUNTDOWN_RANGE);
-	CoinType aSunType = mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SUNNY_DAY ? CoinType::COIN_LARGESUN : CoinType::COIN_SUN;
+	//VORTEX
+	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_GLOOMY_DAY) {
+		mSunCountDown = min(SUN_COUNTDOWN_MAX, SUN_COUNTDOWN + mNumSunsFallen * 10) + Rand(SUN_COUNTDOWN_RANGE);
+	}
+	else {
+		mSunCountDown = min(SUN_COUNTDOWN_MAX_GLOOMY_DAY, SUN_COUNTDOWN + mNumSunsFallen * 10) + Rand(SUN_COUNTDOWN_RANGE);
+	}
+
+	CoinType aSunType = mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_GLOOMY_DAY ? CoinType::COIN_SMALLSUN : CoinType::COIN_SUN;
 	AddCoin(RandRangeInt(100 + BOARD_ADDITIONAL_WIDTH, 649 + BOARD_ADDITIONAL_WIDTH), 60, aSunType, CoinMotion::COIN_MOTION_FROM_SKY);
 }
 
@@ -6421,7 +6449,7 @@ void Board::DrawGameObjects(Graphics* g)
 	{
 		AddUIRenderItem(aRenderList, aRenderItemCount, RenderObjectType::RENDER_ITEM_FOG, MakeRenderOrder(RenderLayer::RENDER_LAYER_FOG, 0, 0));
 	}
-	if (mApp->IsStormyNightLevel() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_RAINING_SEEDS)
+	if (mApp->IsStormyNightLevel() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_RAINING_SEEDS || mDarknessEnabled)
 	{
 		AddUIRenderItem(aRenderList, aRenderItemCount, RenderObjectType::RENDER_ITEM_STORM, MakeRenderOrder(RenderLayer::RENDER_LAYER_FOG, 0, 3));
 	}

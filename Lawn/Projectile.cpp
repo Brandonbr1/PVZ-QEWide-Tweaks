@@ -43,6 +43,10 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 	mProjectileType = theProjectileType;
 	mPosX = theX;
 	mPosY = theY;
+
+	initalX = theX;
+	initalY = theY;
+
 	mPosZ = 0.0f;
 	mVelX = 0.0f;
 	mVelY = 0.0f;
@@ -146,7 +150,7 @@ Plant* Projectile::FindCollisionTargetPlant()
 				aPlant->mSeedType == SeedType::SEED_POTATOMINE ||
 				aPlant->mSeedType == SeedType::SEED_SPIKEWEED ||
 				aPlant->mSeedType == SeedType::SEED_SPIKEROCK ||
-				aPlant->mSeedType == SeedType::SEED_FLOWERPOT || //WIDETWEAK: Fixed zombotany peas being able to hit flower pots
+			//	aPlant->mSeedType == SeedType::SEED_FLOWERPOT || //WIDETWEAK: Fixed zombotany peas being able to hit flower pots
 				aPlant->mSeedType == SeedType::SEED_LILYPAD)  
 				continue;
 		}

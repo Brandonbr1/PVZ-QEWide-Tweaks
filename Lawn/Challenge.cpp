@@ -2516,7 +2516,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_PAIL] = true;
 		aList[ZOMBIE_LADDER] = true;
 	}
-	else if (aGameMode == GAMEMODE_CHALLENGE_SUNNY_DAY)
+	else if (aGameMode == GAMEMODE_CHALLENGE_GLOOMY_DAY)
 	{
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_PAIL] = true;
@@ -2951,7 +2951,7 @@ void Challenge::DrawStormFlash(Graphics* g, int theTime, int theMaxAmount)
 {
 	MTRand aDrawRand = MTRand(mBoard->mMainCounter / 6);
 	int aDarkness = TodAnimateCurve(150, 0, theTime, 255 - theMaxAmount, 255, CURVE_LINEAR) + aDrawRand.NextNoAssert((unsigned long)64) - 32;
-	g->SetColor(Color(0, 0, 0, ClampInt(aDarkness, 0, 255)));
+	g->SetColor(Color(0, 0, 0, ClampInt(aDarkness, 0, 220)));
 	g->FillRect(-1000, -1000, 2800, 2600);
 
 	g->SetColor(Color(255, 255, 255, TodAnimateCurve(150, 75, theTime, theMaxAmount, 0, CURVE_LINEAR)));
@@ -2963,7 +2963,8 @@ void Challenge::DrawWeather(Graphics* g)
 	if (mApp->IsStormyNightLevel() || mApp->mGameMode == GAMEMODE_CHALLENGE_RAINING_SEEDS)
 		DrawRain(g);
 
-	if (mApp->IsStormyNightLevel())
+	//VORTEX
+	if (mBoard->mDarknessEnabled || mApp->IsStormyNightLevel())
 		DrawStormNight(g);
 }
 
@@ -3012,30 +3013,63 @@ void Challenge::DrawRain(Graphics* g)
 
 void Challenge::DrawStormNight(Graphics* g)
 {
-	if (mChallengeState == STATECHALLENGE_STORM_FLASH_1 && mChallengeStateCounter < 300)
+	if (mBoard->mDarknessEnabled) 
 	{
-		if (mChallengeStateCounter > STORM_FLASH_TIME)
+		if (mBoard->mDarknessTimer < 300)
 		{
-			DrawStormFlash(g, mChallengeStateCounter - STORM_FLASH_TIME, 255);
+			if (mBoard->mDarknessTimer > STORM_FLASH_TIME)
+			{
+				DrawStormFlash(g, mBoard->mDarknessTimer - STORM_FLASH_TIME, 255);
+			}
+			else
+			{
+				DrawStormFlash(g, mBoard->mDarknessTimer, 92);
+			}
+		}
+		else if ( mBoard->mDarknessTimer < 300)
+		{
+			DrawStormFlash(g, mBoard->mDarknessTimer / 2, 255);
+		}
+		else if (mBoard->mDarknessTimer < 150)
+		{
+			DrawStormFlash(g, mBoard->mDarknessTimer, 255);
 		}
 		else
 		{
-			DrawStormFlash(g, mChallengeStateCounter, 92);
+			g->SetColor(Color::Black);
+			g->FillRect(-1000, -1000, BOARD_WIDTH + 2000, BOARD_HEIGHT + 2000);
 		}
+
 	}
-	else if (mChallengeState == STATECHALLENGE_STORM_FLASH_2 && mChallengeStateCounter < 300)
+	else 
 	{
-		DrawStormFlash(g, mChallengeStateCounter / 2, 255);
+		if (mChallengeState == STATECHALLENGE_STORM_FLASH_1 && mChallengeStateCounter < 300)
+		{
+			if (mChallengeStateCounter > STORM_FLASH_TIME)
+			{
+				DrawStormFlash(g, mChallengeStateCounter - STORM_FLASH_TIME, 255);
+			}
+			else
+			{
+				DrawStormFlash(g, mChallengeStateCounter, 92);
+			}
+		}
+		else if (mChallengeState == STATECHALLENGE_STORM_FLASH_2 && mChallengeStateCounter < 300)
+		{
+			DrawStormFlash(g, mChallengeStateCounter / 2, 255);
+		}
+		else if (mChallengeState == STATECHALLENGE_STORM_FLASH_3 && mChallengeStateCounter < 150)
+		{
+			DrawStormFlash(g, mChallengeStateCounter, 255);
+		}
+		else
+		{
+			g->SetColor(Color::Black);
+			g->FillRect(-1000, -1000, BOARD_WIDTH + 2000, BOARD_HEIGHT + 2000);
+		}
+	
 	}
-	else if (mChallengeState == STATECHALLENGE_STORM_FLASH_3 && mChallengeStateCounter < 150)
-	{
-		DrawStormFlash(g, mChallengeStateCounter, 255);
-	}
-	else
-	{
-		g->SetColor(Color::Black);
-		g->FillRect(-1000, -1000, BOARD_WIDTH + 2000, BOARD_HEIGHT + 2000);
-	}
+
 
 	mBoard->DrawUIBottom(g);
 	mBoard->DrawTopRightUI(g);

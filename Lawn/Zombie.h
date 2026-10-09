@@ -29,8 +29,14 @@ constexpr const int ZOMBIE_BACKUP_DANCER_RISE_HEIGHT = -200;
 constexpr const int BOSS_FLASH_HEALTH_FRACTION = 10;
 constexpr const int TICKS_BETWEEN_EATS = 4;
 constexpr const int DAMAGE_PER_EAT = TICKS_BETWEEN_EATS;
+
+//VORTEX
+constexpr const int EAT_COOLDOWN_REDUCE = 10;
 constexpr const int DAMAGE_PER_EAT_LIFESTEAL = TICKS_BETWEEN_EATS - 2;
 constexpr const int FIERY_READY_TO_ATTACK = 160;
+
+
+
 constexpr const float THOWN_ZOMBIE_GRAVITY = 0.05f;
 constexpr const float CHILLED_SPEED_FACTOR = 0.4f;
 constexpr const float CLIP_HEIGHT_LIMIT = -100.0f;
@@ -289,6 +295,7 @@ public:
     int                             TakeShieldDamage(int theDamage, unsigned int theDamageFlags);
     int                             TakeHelmDamage(int theDamage, unsigned int theDamageFlags);
     void                            TakeBodyDamage(int theDamage, unsigned int theDamageFlags);
+    void TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, int posX, int posY, unsigned int plantId); //VORTEX
     void                            AttachShield();
     void                            DetachShield();
     void                            UpdateReanim();

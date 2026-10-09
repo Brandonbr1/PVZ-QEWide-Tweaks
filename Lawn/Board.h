@@ -243,6 +243,13 @@ public:
 	int                             mDebugObjectType;
 	int                             mDebugObjectLimit;
 
+
+	bool							mDarknessEnabled;//VORTEX
+	int								mDarknessTimer;//VORTEX
+
+	//int								mInitalPositionX;//VORTEX
+	//int								mInitalPositionY;//VORTEX
+
 public:
 	Board(LawnApp* theApp);
 	virtual ~Board();

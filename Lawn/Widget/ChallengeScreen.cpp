@@ -54,7 +54,7 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY,                 14,  ChallengePage::CHALLENGE_PAGE_CHALLENGE,   3,  3,  _S("[POGO_PARTY]"), true },
 	{ GameMode::GAMEMODE_CHALLENGE_FINAL_BOSS,                 19,  ChallengePage::CHALLENGE_PAGE_CHALLENGE,   4,  3,  _S("[FINAL_BOSS]"), true },
 	{ GameMode::GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT,      0,   ChallengePage::CHALLENGE_PAGE_LIMBO,       0,  0,  _S("[ART_CHALLENGE_WALL_NUT]"), false },
-	{ GameMode::GAMEMODE_CHALLENGE_SUNNY_DAY,                  1,   ChallengePage::CHALLENGE_PAGE_LIMBO,       1,  0,  _S("[SUNNY_DAY]"), false },
+	{ GameMode::GAMEMODE_CHALLENGE_GLOOMY_DAY,                  1,  ChallengePage::CHALLENGE_PAGE_LIMBO,       1,  0,  _S("[GLOOMY_DAY]"), false }, //VORTEX
 	{ GameMode::GAMEMODE_CHALLENGE_RESODDED,                   2,   ChallengePage::CHALLENGE_PAGE_LIMBO,       2,  0,  _S("[UNSODDED]"), false },
 	{ GameMode::GAMEMODE_CHALLENGE_BIG_TIME,                   3,   ChallengePage::CHALLENGE_PAGE_LIMBO,       3,  0,  _S("[BIG_TIME]"), false },
 	{ GameMode::GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER,    4,   ChallengePage::CHALLENGE_PAGE_LIMBO,       4,  0,  _S("[ART_CHALLENGE_SUNFLOWER]"), false },

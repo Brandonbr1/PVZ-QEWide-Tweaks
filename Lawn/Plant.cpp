@@ -4348,7 +4348,6 @@ void Plant::DoSpecial()
 
         mApp->PlaySample(SOUND_POTATO_MINE);
         mBoard->KillAllZombiesInRadius(mRow, aPosX, aPosY, 60, 0, false, aDamageRangeFlags);
-        mBoard->KillAllPlantsInRadius(aPosX, aPosY, 60);
         if(!mApp->IsIZombieLevel() && !mApp->mPlayingQuickplay)
             mApp->GetAchievement(AchievementType::ACHIEVEMENT_SPUDOW);
 
@@ -4364,7 +4363,7 @@ void Plant::DoSpecial()
         Plant* aPlant = mBoard->GetTopPlantAt(mPlantCol, mRow, PlantPriority::TOPPLANT_ONLY_NORMAL_POSITION);
         if (aPlant && aPlant->mIsAsleep)
         {
-            aPlant->mWakeUpCounter = 1000;
+            aPlant->mWakeUpCounter = 1000; //VORTEX
         }
 
         mState = PlantState::STATE_DOINGSPECIAL;
