@@ -189,6 +189,17 @@ public:
     bool                    mIsAsleep;                      
     bool                    mIsOnBoard;                     
     bool                    mHighlighted;                   
+    bool                    mPoision; //VORTEX
+    int                     mPosionTimer; //VORTEX
+    bool                    mWither;//VORTEX
+    int                     mWitherTimer;//VORTEX
+    bool                    mRust;//VORTEX
+    int                     mRustTimer;//VORTEX
+    bool                    mWeakness;//VORTEX
+    int                     mWeaknessTimer;//VORTEX
+
+
+
 
 public:
     Plant();

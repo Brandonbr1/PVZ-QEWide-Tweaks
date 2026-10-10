@@ -42,7 +42,8 @@ Projectile::~Projectile()
 	AttachmentDie(mAttachmentID);
 }
 
-void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, unsigned int plantID) 
+//VORTEX
+void Projectile::ProjectileInitialize2(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, unsigned int plantID) 
 {
 	ProjectileInitialize(theX, theY, theRenderOrder, theRow, theProjectileType);
 	mPlantId = plantID;
@@ -496,11 +497,11 @@ void Projectile::DoSplashDamage(Zombie* theZombie)
 			unsigned int aDamageFlags = GetDamageFlags(aZombie);
 			if (aZombie == theZombie)
 			{
-				aZombie->TakeDamageWithPlantPos(aOriginalDamage, aDamageFlags, mPlantId);
+				aZombie->TakeDamageWithPlantID(aOriginalDamage, aDamageFlags, mPlantId);
 			}
 			else
 			{
-				aZombie->TakeDamageWithPlantPos(aSplashDamage, aDamageFlags, mPlantId);
+				aZombie->TakeDamageWithPlantID(aSplashDamage, aDamageFlags, mPlantId);
 			}
 		}
 	}
@@ -835,7 +836,7 @@ void Projectile::DoImpact(Zombie* theZombie)
 	else if (theZombie)
 	{
 		unsigned int aDamageFlags = GetDamageFlags(theZombie);
-		theZombie->TakeDamageWithPlantPos(GetProjectileDef().mDamage, aDamageFlags);
+		theZombie->TakeDamageWithPlantPos(GetProjectileDef().mDamage, aDamageFlags, mPlantId);
 	}
 
 	float aLastPosX = mPosX - mVelX;

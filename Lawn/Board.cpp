@@ -2515,14 +2515,22 @@ Projectile* Board::AddProjectile(int theX, int theY, int theRenderOrder, int the
 {
 	Projectile* aProjectile = mProjectiles.DataArrayAlloc();
 
-	PlantID a = (PlantID)mPlants.DataArrayGetID(aPlant);
 
-	unsigned int b = a;
+	if (aPlant != nullptr) 
+	{
+		PlantID plantID = (PlantID)mPlants.DataArrayGetID(aPlant);
+
+		unsigned int plantIDInt = plantID;
+
+		aProjectile->ProjectileInitialize2(theX, theY, theRenderOrder, theRow, theProjectileType, plantIDInt);
+	
+	}
+	else {
+		aProjectile->ProjectileInitialize(theX, theY, theRenderOrder, theRow, theProjectileType);
+	
+	}
 
 
-
-
-	aProjectile->ProjectileInitialize(theX, theY, theRenderOrder, theRow, theProjectileType, b);
 	return aProjectile;
 }
 
@@ -4058,7 +4066,6 @@ Plant* Board::ToolHitTest(int theX, int theY)
 	}
 	return nullptr;
 }
-
 void Board::TutorialArrowShow(int theX, int theY)
 {
 	TutorialArrowRemove();
@@ -4092,7 +4099,7 @@ void Board::MouseDownWithTool(int x, int y, int theClickCount, CursorType theCur
 		return;
 	}
 
-	Plant* aPlant = ToolHitTest(x, y);
+	Plant* aPlant = ToolHitTest(x, y); //
 	if (aPlant == nullptr)
 	{
 		mApp->PlayFoley(FoleyType::FOLEY_DROP);
@@ -4113,10 +4120,11 @@ void Board::MouseDownWithTool(int x, int y, int theClickCount, CursorType theCur
 		}
 	}
 
+
 	ClearCursor();
 }
 
-Plant* Board::SpecialPlantHitTest(int x, int y)
+Plant* Board::SpecialPlantHitTest(int x, int y) ////this?
 {
 	Plant* aPlant = nullptr;
 	while (IteratePlants(aPlant))
@@ -4515,7 +4523,7 @@ void Board::MouseDown(int x, int y, int theClickCount)
 	{
 		if (aCursor == CURSOR_TYPE_COBCANNON_TARGET)
 		{
-			MouseDownCobcannonFire(x, y, theClickCount);
+			MouseDownCobcannonFire(x, y, theClickCount); 
 			UpdateCursor();
 			return;
 		}
@@ -8649,7 +8657,7 @@ void Board::KeyChar(SexyChar theChar)
 		if (mDebugObjectType == 3)
 		{
 			ProjectileType aDebugProjectileType = static_cast<ProjectileType>(mDebugObjectSelection);
-			Projectile* aProjectile = AddProjectile(aMouseX, aMouseY, RenderLayer::RENDER_LAYER_PLANT, aGridY, aDebugProjectileType);
+			Projectile* aProjectile = AddProjectile(aMouseX, aMouseY, RenderLayer::RENDER_LAYER_PLANT, aGridY, aDebugProjectileType, nullptr); //VEGANCE, NINJA, ENDER COUNTERED BY FIRE
 			aProjectile->mDamageRangeFlags = 1;
 			aProjectile->mMotionType = ProjectileMotion::MOTION_STRAIGHT;
 			if (aProjectile->mProjectileType == ProjectileType::PROJECTILE_FIREBALL)

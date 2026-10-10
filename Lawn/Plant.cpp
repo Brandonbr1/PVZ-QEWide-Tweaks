@@ -87,6 +87,14 @@ void Plant::PlantInitialize(int theGridX, int theGridY, SeedType theSeedType, Se
 {
     mPlantCol = theGridX;
     mRow = theGridY;
+    mPosionTimer = 120;
+    mPoision = false;
+    mWither = false;
+    mWitherTimer = 160;
+    mRust = false;
+    mRustTimer = 180;
+    mWeakness = false;
+    mWeaknessTimer = 220;
     if (mBoard)
     {
         mX = mBoard->GridToPixelX(theGridX, theGridY);
@@ -2512,6 +2520,62 @@ void Plant::UpdateAbilities()
 
     if (mIsAsleep || mSquished || mOnBungeeState != PlantOnBungeeState::NOT_ON_BUNGEE)
         return;
+
+  //VORTEX
+
+    if (mPoision) 
+    {
+        if (mPosionTimer % 20 == 0) 
+        {
+            mPlantHealth -= 1;
+        }
+    
+        if (mPosionTimer < 0) 
+        {
+            mPoision = false;
+            mPosionTimer = 120;
+        
+        }
+    
+    }
+
+    if (mRust) 
+    {
+    
+        mRustTimer--;
+
+        if (mRustTimer < 0) 
+        {
+            mRust = false;
+            mRustTimer = 180;
+        
+        }
+    
+    }
+
+    //VORTEX
+    if (mWither) 
+    {
+        if (mWitherTimer % 20 == 0)
+        {
+            mPlantHealth -= 3;
+        }
+
+        if (mWitherTimer < 0)
+        {
+            mWither = false;
+            mWitherTimer = 150;
+
+        }
+
+
+
+
+
+
+
+    
+    }
     
     UpdateShooting();
 
@@ -2649,8 +2713,27 @@ void Plant::UpdateReanimColor()
     }
     else
     {
-        aColorOverride = Color(255, 255, 255);
+        //VORTEX
+        if (mPoision)
+        {
+            aColorOverride = Color(56, 150, 68);
+        }
+        else if (mWither) {
+            aColorOverride = Color(12, 12, 12);
+        
+        } 
+        else if (mRust) {
+            aColorOverride = Color(183, 65, 14);
+        }
+        else if (mWeakness) {
+            aColorOverride = Color(54, 54, 54);
+        }
+        else {
+            aColorOverride = Color(255, 255, 255);
+        }
     }
+
+
 
     aBodyReanim->mColorOverride = aColorOverride;
 

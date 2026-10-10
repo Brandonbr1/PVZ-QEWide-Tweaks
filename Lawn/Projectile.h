@@ -59,7 +59,7 @@ public:
     Projectile();
     ~Projectile();
 
-    void ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, unsigned int plantID); //VORTEX
+    void ProjectileInitialize2(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType, unsigned int plantID);//VORTEX
 
     void                    ProjectileInitialize(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType);
     void                    Update();

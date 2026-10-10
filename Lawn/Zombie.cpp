@@ -97,7 +97,7 @@ void Zombie::UpdateZombieWithFiery()
         
        aOriginX += 90.0f * mScaleZombie;
 
-       Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA);
+       Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA, nullptr);
 
         aProjectile->ConvertToFireballWithoutTorch();
         aProjectile->mMotionType = ProjectileMotion::MOTION_BACKWARDS;
@@ -142,10 +142,11 @@ void Zombie::ApplyInitalInfernalEffects()
 
         for (int i = 0; i < effectsNumber; i++)
         {
-            int randomNumber = RandRangeInt(1, 18);
+            int randomNumber = RandRangeInt(1, 22);
 
         //   mHasGhastly = true;
-            mHasEnder = true;
+          //  mHasEnder = true;
+          //  mHasPosion = true;
 
             /*
             mHasBlastoff = !mHasBlastoff && randomNumber == 1;
@@ -167,7 +168,12 @@ void Zombie::ApplyInitalInfernalEffects()
             mHasStorm = !mHasStorm && randomNumber == 17;
             mHasRegen = !mHasRegen && randomNumber == 18;
             */
+            mHasFiery = !mHasFiery && randomNumber == 19;
+            mHasRust = !mHasRust && randomNumber == 20;
+            mHasWeakness = !mHasWeakness && randomNumber == 21;
+            mHasVegance = !mHasVegance && randomNumber == 22;
             
+            isInfernal = true;
            
             
 
@@ -305,12 +311,22 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     mHasGravity = false;
     mHasLifesteal = false;
     mHasPosion == false;
+    mHasWither == false;
     mHasQuickSand = false;
     mHasSnapper = false;
     mHasSprint = false;
     mHasAlreadyGivenSprint = false;
     mHasSticky = false;
     mActiveOneUp = false;
+    mHasRegen = false;
+    mRegenTimer = 0;
+    mZombieHitCounter = 0;
+    mHasStorm = false;
+    mHasFiery = false;
+    mHasRust = false;
+    mHasWeakness = false;
+    mHasVegance = false;
+    isInfernal = false;
 
     mFromWave = theFromWave;
     mRow = theRow;
@@ -1706,7 +1722,7 @@ void Zombie::ZombieCatapultFire(Plant* thePlant)
 
     mApp->PlayFoley(FoleyType::FOLEY_BASKETBALL);
 
-    Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_BASKETBALL);
+    Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_BASKETBALL, nullptr);
     float aRangeX = aOriginX - aTargetX - 20.0f;
     float aRangeY = aTargetY - aOriginY;
     if (aRangeX < 40.0f)
@@ -2476,12 +2492,12 @@ void Zombie::UpdateZombiePeaHead()
         if (mMindControlled)  
         {
             aOriginX += 90.0f * mScaleZombie;
-            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_PEA);
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_PEA, nullptr);
             aProjectile->mDamageRangeFlags = 1;
         }
         else
         {
-            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA);
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA, nullptr);
             aProjectile->mMotionType = ProjectileMotion::MOTION_BACKWARDS;
             aProjectile->mDamageRangeFlags = 129U; //WIDETWEAK: Fixed zombotany peas not hitting hypnotized zombies
         }
@@ -2576,12 +2592,12 @@ void Zombie::UpdateZombieGatlingHead()
         if (mMindControlled)  
         {
             aOriginX += 90.0f * mScaleZombie;
-            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_PEA);
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_PEA, nullptr); // ICE PEA COUNTERS IT AS WELL
             aProjectile->mDamageRangeFlags = 1;
         }
         else
         {
-            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA);
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_PEA, nullptr);
             aProjectile->mMotionType = ProjectileMotion::MOTION_BACKWARDS;
             aProjectile->mDamageRangeFlags = 129U; //WIDETWEAK: Fixed zombotany peas not hitting hypnotized zombies
         }
@@ -7123,6 +7139,43 @@ void Zombie::EatPlant(Plant* thePlant)
         thePlant->mRecentlyEatenCountdown -= EAT_COOLDOWN_REDUCE;
     }
 
+    if (mHasPosion)
+    {
+        thePlant->mPoision = true;
+    }
+
+    if (mHasWither) 
+    {
+        thePlant->mWither = true;
+    }
+
+
+
+    if (mHasFiery) 
+    {
+        thePlant->Die();
+    }
+
+    if (thePlant->mRust) 
+    {
+        thePlant -= 5;
+
+    }
+
+    if (thePlant->mWeakness) 
+    {
+        thePlant -= 5;
+    }
+
+    if (mHasRust) 
+    {
+        thePlant->mRust = true;
+    }
+
+    if (mHasWeakness) 
+    {
+        thePlant->mWeakness = true;
+    }
 
     //VORTEX
     if (mHasBlastoff) 
@@ -8079,8 +8132,7 @@ void Zombie::TakeBodyDamage(int theDamage, unsigned int theDamageFlags)
 }
 
 //VORTEX
-//TODO, GET PLANT BASED OFF POS
-void Zombie::TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, unsigned int plantID)
+void Zombie::TakeDamageWithPlantID(int theDamage, unsigned int theDamageFlags, unsigned int plantID)
 {
     TakeDamage(theDamage, theDamageFlags);
 
@@ -8090,36 +8142,48 @@ void Zombie::TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, 
 
     if (aPlant != nullptr) 
     {
+        mZombieHitCounter++;
 
-        if (mHasEnder || mHasNinja /** && RandRangeInt(0, 12) == 0**/)
-        {
-            //  mPosX += 50 + RandRangeInt(15, 25);
-            aPlant->mPlantHealth -= 5000;
+        if (mHasVegance) {
+        
+            aPlant->mPlantHealth -= 4;
+        
         }
 
-        //VORTEX
 
-        if (RandRangeInt(0, 6) == 2)
+        if (mZombieHitCounter > 3) 
         {
-
-            if (mHasExhaust)
+        
+            if (mHasEnder || mHasNinja)
             {
-                //  mBoard->plantProjectileAssociation->mLaunchCounter += 8;
+                mPosX -= 50 + RandRangeInt(15, 25);
+                aPlant->mPlantHealth -= 5;
+                mZombieHitCounter = 0;
             }
 
-            if (mHasQuickSand)
+            if (mHasExhaust || mHasQuickSand)
             {
-                //  mBoard->plantProjectileAssociation->mLaunchCounter += 8;
+                aPlant->mLaunchCounter += 25;
+                mZombieHitCounter = 0;
             }
 
+            if (mHasPosion)
+            {
+                aPlant->mPoision = true;
+            }
+
+            if (mHasWither) 
+            {
+            
+                aPlant->mWither = true;
+            }
+
+            mZombieHitCounter = 0;
+        
         }
 
+  
 
-        //VORTEX
-        if (mHasPosion)
-        {
-            // mBoard->plantProjectileAssociation->mPoisioned = true;
-        }
     
     }
 

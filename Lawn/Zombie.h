@@ -204,7 +204,16 @@ public:
     bool                            mHasSticky;//Vortex
     bool                            mHasStorm;//Vortex
     bool                            mHasRegen;//Vortex
+    bool                            mHasWither;//Vortex
     int                             mRegenTimer;//Vortex
+    int                             mZombieHitCounter;//VORTEX
+    bool                            mHasRust; //VORTEX
+    bool                            mHasWeakness;//VORTEX
+    bool                            mHasVegance;//VORTEX
+
+    bool                            isInfernal;
+
+
     void                            ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie* theParentZombie, int theFromWave, bool theAnimateBush = true);
     void                            Animate();
     void                            CheckIfPreyCaught();
@@ -218,7 +227,7 @@ public:
     void                            DrawZombieWithParts(Graphics* g, const ZombieDrawPosition& theDrawPos);
     void                            DrawZombiePart(Graphics* g, Image* theImage, int theFrame, int theRow, const ZombieDrawPosition& theDrawPos);
     void                            DrawBungeeCord(Graphics* g, int theOffsetX, int theOffsetY);
-    void TakeDamageWithPlantPos(int theDamage, unsigned int theDamageFlags, unsigned int plantID); //VORTEX
+    void TakeDamageWithPlantID(int theDamage, unsigned int theDamageFlags, unsigned int plantID); //VORTEX
     void                            TakeDamage(int theDamage, unsigned int theDamageFlags);
     /*inline*/ void                 SetRow(int theRow);
     float                           GetPosYBasedOnRow(int theRow);
